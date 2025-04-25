@@ -1,65 +1,483 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seu Nome | Portfólio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Portfólio</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f7f7f7;
+    :root {
+      --bg: #0a060d;
+      --fg: #e0e0e0;
+      --accent: #FFF8C4; /* Amarelo Pálido */
+      --secondary-accent: #00BCd4; /* Ciano para efeitos */
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --hover-glow: rgba(17, 0, 9, 0.8);
+      --link-color: #90CAF9; /* Azul claro para links */
+    }
+
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
-    header {
-      background-color: #333;
-      color: white;
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
       padding: 2rem;
-      text-align: center;
+      position: relative;
+      overflow-x: hidden;
     }
-    section {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    /* Efeito de rede animado */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.05) 0%, transparent 60%), /* Usa --secondary-accent */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      z-index: -1;
+      /*animation: networkFlow 20s linear infinite;*/
     }
+
+    @keyframes networkFlow {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 30px var(--hover-glow),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden; /* Necessário para conter o ::before */
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 60%, rgba(0, 188, 212, 0.1) 100%); /* Usa --secondary-accent */
+      /*animation: rotate 20s linear infinite;*/
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Imagem no topo */
+    .top-image {
+    width: 250px; /* Largura fixa para o quadrado */
+    height: 250px; /* Altura igual à largura */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 8px; /* Bordas levemente arredondadas */
+    margin: 0 auto 2rem; /* Centraliza horizontalmente e dá espaço abaixo */
+    display: block; /* Importante para o margin:auto funcionar */
+    border: 3px solid var(--accent); /* Borda estilosa no tom do tema */
+    box-shadow: 0 0 15px rgba(48, 0, 25, 1); /* Sombra sutil */
+  }
+
+
+    header {
+        text-align: center; /* Centraliza o cabeçalho */
+        margin-bottom: 2.5rem;
+    }
+
     h1, h2 {
-      margin-top: 0;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      position: relative;
     }
-    a {
-      color: #0077cc;
-      text-decoration: none;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
     }
-    a:hover {
-      text-decoration: underline;
+
+    header p {
+        font-size: 1.1rem;
+        color: var(--fg);
+        opacity: 0.8;
     }
+
+    section {
+        margin-bottom: 2.5rem; /* Espaçamento entre seções */
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem; /* Aumenta espaço após o título */
+      padding-left: 1rem;
+      border-left: 4px solid var(--accent);
+      transition: border-left-width 0.3s ease, padding-left 0.3s ease; /* Adiciona transição no padding */
+    }
+
+    .section-title:hover {
+      border-left-width: 8px;
+      padding-left: 1.2rem; /* Leve deslocamento no hover */
+    }
+
+    /* Grid para os cards de projeto, pesquisa, ensino */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo */
+        gap: 1.5rem; /* Espaçamento entre cards */
+    }
+
+    /* Estilo base para os cards que agora são links */
+    a.card {
+        display: block; /* Faz o link ocupar o espaço do grid */
+        text-decoration: none; /* Remove sublinhado do link */
+        color: inherit; /* Herda a cor do texto do body */
+        background-color: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden; /* Para conter o pseudo-elemento ::before */
+    }
+
+    a.card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent 50%, rgba(243, 1, 122, 0.11) 100%); /* Efeito rosa no hover */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 0;
+    }
+
+    a.card:hover::before {
+        opacity: 1;
+    }
+
+    a.card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+            0 0 25px var(--hover-glow),
+            inset 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Conteúdo dentro do card link */
+    .card h3 {
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+        font-family: 'IBM Plex Mono', monospace;
+        position: relative; /* Para garantir que fique sobre o ::before */
+        z-index: 1;
+    }
+
+    .card p {
+        margin-bottom: 1rem;
+        position: relative; /* Para garantir que fique sobre o ::before */
+        z-index: 1;
+        opacity: 0.9; /* Levemente mais suave */
+    }
+
+    .icon-links {
+        display: flex; /* Alinha ícones lado a lado */
+        gap: 1rem; /* Espaço entre ícones */
+        margin-top: auto; /* Empurra para o final do card se houver espaço */
+        position: relative; /* Para garantir que fique sobre o ::before */
+        z-index: 1;
+    }
+
+    .icon-links a {
+        color: var(--link-color); /* Cor específica para ícones de link */
+        font-size: 1.5rem; /* Tamanho dos ícones (emojis) */
+        text-decoration: none;
+        transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .icon-links a:hover {
+        transform: translateY(-2px) scale(1.1); /* Efeito de levantar e aumentar */
+        filter: drop-shadow(0 0 5px var(--accent));
+    }
+
+    /* Seção de Tecnologias */
+    .tech-section {
+        /* Estilos específicos se necessário */
+    }
+
+    .tech-grid {
+        display: grid;
+        /* Cria colunas responsivas: mínimo 100px, máximo 1fr (distribui igual) */
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1.5rem; /* Espaçamento entre os itens de tecnologia */
+        justify-items: center; /* Centraliza itens no eixo horizontal da célula do grid */
+    }
+
+    .tech-item {
+        display: flex;
+        flex-direction: column; /* Empilha imagem sobre o texto */
+        align-items: center; /* Centraliza horizontalmente */
+        text-align: center;
+        gap: 0.5rem; /* Espaço entre imagem e texto */
+        padding: 1rem; /* Espaçamento interno */
+        background-color: rgba(255, 255, 255, 0.03); /* Fundo sutil */
+        border-radius: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tech-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 15px var(--hover-glow);
+    }
+
+    .tech-item img {
+        width: 60px; /* Largura fixa para o ícone */
+        height: 60px; /* Altura fixa para o ícone (quadrado) */
+        object-fit: contain; /* Ajusta imagem dentro do espaço sem cortar, se não for quadrada */
+        /* object-fit: cover; -> Alternativa se quiser cortar para preencher */
+        border-radius: 4px; /* Leve arredondamento se desejar */
+    }
+
+    .tech-item span {
+        font-size: 0.9rem;
+        color: var(--fg);
+        opacity: 0.9;
+    }
+
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* --- Animação de Fluxo de Dados --- */
+  .data-flow-animation {
+    position: fixed; /* Fica fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fica atrás do conteúdo principal, mas acima do body::before */
+    overflow: hidden; /* Garante que os dots sumam fora da tela */
+    pointer-events: none; /* Não interfere com cliques */
+  }
+
+  .dot {
+    position: absolute;
+    width: 4px; /* Tamanho do ponto */
+    height: 4px; /* Tamanho do ponto */
+    border-radius: 50%; /* Faz ser um círculo */
+    background-color: var(--secondary-accent); /* Cor ciano para os pontos */
+    box-shadow: 0 0 6px var(--secondary-accent), 0 0 10px var(--secondary-accent); /* Efeito de brilho */
+    animation: dataFlow 15s linear infinite; /* Aplica a animação */
+    opacity: 0; /* Começa invisível */
+  }
+
+  /* Variações para diferentes pontos usando nth-child */
+  /* Isso cria um efeito mais dinâmico e menos repetitivo */
+
+  .dot:nth-child(1) {
+    left: 10%; /* Posição inicial horizontal */
+    animation-delay: 0s; /* Atraso para começar */
+    animation-duration: 12s; /* Duração da animação */
+  }
+
+  .dot:nth-child(2) {
+    left: 30%;
+    animation-delay: -5s; /* Começa em um ponto diferente da animação */
+    animation-duration: 18s;
+    width: 3px; height: 3px; /* Um pouco menor */
+    background-color: var(--accent); /* Cor amarela */
+    box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
+  }
+
+  .dot:nth-child(3) {
+    left: 50%;
+    animation-delay: -2s;
+    animation-duration: 10s;
+  }
+
+  .dot:nth-child(4) {
+    left: 70%;
+    animation-delay: -10s;
+    animation-duration: 15s;
+    width: 5px; height: 5px; /* Um pouco maior */
+  }
+
+   .dot:nth-child(5) {
+    left: 90%;
+    animation-delay: -7s;
+    animation-duration: 13s;
+     background-color: var(--accent); /* Cor amarela */
+     box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
+  }
+
+  .dot:nth-child(6) {
+    left: 5%;
+    animation-delay: -3s;
+    animation-duration: 20s;
+  }
+
+   .dot:nth-child(7) {
+    left: 25%;
+    animation-delay: -8s;
+    animation-duration: 11s;
+     width: 3px; height: 3px;
+  }
+
+   .dot:nth-child(8) {
+    left: 45%;
+    animation-delay: -1s;
+    animation-duration: 16s;
+     background-color: var(--accent);
+     box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
+  }
+
+   .dot:nth-child(9) {
+    left: 65%;
+    animation-delay: -12s;
+    animation-duration: 19s;
+  }
+
+   .dot:nth-child(10) {
+    left: 85%;
+    animation-delay: -6s;
+    animation-duration: 9s;
+    width: 5px; height: 5px;
+    background-color: var(--accent);
+    box-shadow: 0 0 7px var(--accent), 0 0 12px var(--accent);
+  }
+
+
+  /* A animação em si */
+  @keyframes dataFlow {
+    0% {
+      transform: translateY(-10vh); /* Começa um pouco acima da tela */
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 0.8; /* Fica visível durante a maior parte do percurso */
+    }
+    100% {
+      transform: translateY(110vh); /* Termina bem abaixo da tela */
+      opacity: 0;
+    }
+  }
+
+  /* Ajuste o z-index do body::before se necessário */
+  body::before {
+      /* ... seus estilos existentes ... */
+      z-index: -2; /* Garante que fique atrás da animação .data-flow-animation */
+  }
+
   </style>
 </head>
 <body>
-  <header>
-    <h1>Seu Nome</h1>
-    <p>Desenvolvedor(a) | Designer | [Seu Cargo]</p>
-  </header>
 
-  <section>
-    <h2>Sobre Mim</h2>
-    <p>Breve descrição sobre você, suas habilidades, interesses e o que te motiva.</p>
-  </section>
+    <div class="container">
 
-  <section>
-    <h2>Projetos</h2>
-    <ul>
-      <li><strong>Projeto 1:</strong> <a href="https://github.com/seuusuario/projeto1">Link para o GitHub</a></li>
-      <li><strong>Projeto 2:</strong> <a href="https://github.com/seuusuario/projeto2">Link para o GitHub</a></li>
-    </ul>
-  </section>
+        <img src="top_image.jpg" alt="Banner do Portfólio" class="top-image">
 
-  <section>
-    <h2>Contato</h2>
-    <p>Email: seuemail@example.com</p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/seulinkedin">seulinkedin</a></p>
-  </section>
-</body>
+        <header>
+          <h1>Selene Soares</h1> <p>Scaling intelligence from the edge to the cloud.</p> </header>
+
+        <section id="sobre">
+          <h2 class="section-title">About me</h2>
+          <p>I'm a Computer Science student at UFF, working on research projects involving early-exit architectures for deep learning. My interests span computer networks, distributed systems, edge computing, and machine learning engineering. Outside of tech, I enjoy series, board games, and books.</p> </section>
+
+        <section id="tecnologias" class="tech-section">
+          <h2 class="section-title">Tecnologias Utilizadas</h2>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <img src="python_icon.png" alt="Ícone Python">
+              <span>Python</span>
+            </div>
+            <div class="tech-item">
+               <img src="caminho/para/icone-docker.svg" alt="Ícone Docker">
+              <span>Docker</span>
+            </div>
+            <div class="tech-item">
+               <img src="caminho/para/icone-kubernetes.svg" alt="Ícone Kubernetes">
+              <span>Kubernetes</span>
+            </div>
+             <div class="tech-item">
+               <img src="caminho/para/icone-aws.svg" alt="Ícone AWS">
+              <span>AWS</span>
+            </div>
+             <div class="tech-item">
+               <img src="caminho/para/icone-linux.svg" alt="Ícone Linux">
+              <span>Linux</span>
+            </div>
+            </div>
+        </section>
+
+        <section id="projetos">
+            <h2 class="section-title">Projetos</h2>
+            <div class="card-grid">
+              <a href="#" class="card">
+                <h3>Projeto Exemplo 1</h3>
+                <p>Implementação de um sistema de monitoramento de rede usando Prometheus e Grafana.</p>
+                </a>
+  
+              <a href="#" class="card">
+                <h3>Projeto Exemplo 2</h3>
+                <p>Descrição do segundo projeto que também é um link.</p>
+                </a>
+              </div>
+          </section>
+  
+          <section id="pesquisa">
+            <h2 class="section-title">Pesquisa</h2>
+            <div class="card-grid">
+               <div class="card">
+                <h3>Estudo sobre Latência em Redes 5G</h3>
+                <p>Análise comparativa de protocolos de comunicação para aplicações IoT em redes 5G.</p>
+                </div>
+  
+               <a href="#" class="card">
+                 <h3>Publicação XYZ</h3>
+                 <p>Resumo da publicação que tem um link principal associado.</p>
+                </a>
+              </div>
+          </section>
+  
+          <section id="ensino">
+            <h2 class="section-title">Ensino</h2>
+            <div class="card-grid">
+               <div class="card">
+                <h3>Redes de Computadores Avançadas</h3>
+                <p>Curso focado em topologias complexas, roteamento dinâmico e segurança de redes.</p>
+                </div>
+  
+              <div class="card">
+                <h3>Introdução a Sistemas Distribuídos</h3>
+                <p>Conteúdo ministrado sobre conceitos fundamentais.</p>
+                </div>
+              </div>
+          </section>
+
+        <footer>
+          <p>© 2025 Seu Nome. Todos os direitos reservados.</p> </footer>
+      </div>
+
+  </body>
 </html>
