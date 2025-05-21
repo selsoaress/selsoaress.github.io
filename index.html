@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Portfólio</title>
+  <title>ML & Blockchain Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a060d;
       --fg: #e0e0e0;
-      --accent: #dcdedc; /* Branco */
+      --accent: #FFF8C4; /* Amarelo Pálido */
       --secondary-accent: #00BCd4; /* Ciano para efeitos */
       --card-bg: rgba(255, 255, 255, 0.04);
       --hover-glow: rgba(17, 0, 9, 0.8);
       --link-color: #90CAF9; /* Azul claro para links */
+      --ml-accent: #6649B8; /* Roxo para ML */
+      --blockchain-accent: #FF9F1C; /* Laranja para Blockchain */
     }
 
     * {
@@ -41,11 +43,11 @@
       width: 100%;
       height: 100%;
       background:
-        radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.05) 0%, transparent 60%), /* Usa --secondary-accent */
+        radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.03) 0%, transparent 60%),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.15;
-      z-index: -1;
-      /*animation: networkFlow 20s linear infinite;*/
+      opacity: 0.1;
+      z-index: -2;
+      animation: networkFlow 30s linear infinite;
     }
 
     @keyframes networkFlow {
@@ -64,7 +66,7 @@
         0 0 30px var(--hover-glow),
         inset 0 0 15px rgba(255, 255, 255, 0.05);
       position: relative;
-      overflow: hidden; /* Necessário para conter o ::before */
+      overflow: hidden;
     }
 
     .container::before {
@@ -74,8 +76,8 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(45deg, transparent 60%, rgba(0, 188, 212, 0.1) 100%); /* Usa --secondary-accent */
-      /*animation: rotate 20s linear infinite;*/
+      background: linear-gradient(45deg, transparent 60%, rgba(0, 188, 212, 0.05) 100%);
+      animation: rotate 40s linear infinite;
       z-index: -1;
     }
 
@@ -86,20 +88,19 @@
 
     /* Imagem no topo */
     .top-image {
-    width: 250px; /* Largura fixa para o quadrado */
-    height: 250px; /* Altura igual à largura */
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
-    border-radius: 8px; /* Bordas levemente arredondadas */
-    margin: 0 auto 2rem; /* Centraliza horizontalmente e dá espaço abaixo */
-    display: block; /* Importante para o margin:auto funcionar */
-    border: 3px solid var(--accent); /* Borda estilosa no tom do tema */
-    box-shadow: 0 0 15px rgba(48, 0, 25, 1); /* Sombra sutil */
-  }
-
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 0 auto 2rem;
+      display: block;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 15px rgba(48, 0, 25, 1);
+    }
 
     header {
-        text-align: center; /* Centraliza o cabeçalho */
-        margin-bottom: 2.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
     }
 
     h1, h2 {
@@ -109,158 +110,195 @@
     }
 
     h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
 
     header p {
-        font-size: 1.1rem;
-        color: var(--fg);
-        opacity: 0.8;
+      font-size: 1.1rem;
+      color: var(--fg);
+      opacity: 0.8;
     }
 
     section {
-        margin-bottom: 2.5rem; /* Espaçamento entre seções */
+      margin-bottom: 2.5rem;
     }
 
     .section-title {
       font-size: 1.8rem;
-      margin-bottom: 1.5rem; /* Aumenta espaço após o título */
+      margin-bottom: 1.5rem;
       padding-left: 1rem;
       border-left: 4px solid var(--accent);
-      transition: border-left-width 0.3s ease, padding-left 0.3s ease; /* Adiciona transição no padding */
+      transition: border-left-width 0.3s ease, padding-left 0.3s ease;
     }
 
     .section-title:hover {
       border-left-width: 8px;
-      padding-left: 1.2rem; /* Leve deslocamento no hover */
+      padding-left: 1.2rem;
     }
 
     /* Grid para os cards de projeto, pesquisa, ensino */
     .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo */
-        gap: 1.5rem; /* Espaçamento entre cards */
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
 
     /* Estilo base para os cards que agora são links */
-    a.card {
-        display: block; /* Faz o link ocupar o espaço do grid */
-        text-decoration: none; /* Remove sublinhado do link */
-        color: inherit; /* Herda a cor do texto do body */
-        background-color: var(--card-bg);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 1.5rem;
-        border-radius: 12px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        position: relative;
-        overflow: hidden; /* Para conter o pseudo-elemento ::before */
+    .card, a.card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background-color: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    a.card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent 50%, rgba(243, 1, 122, 0.11) 100%); /* Efeito rosa no hover */
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 0;
+    .card::before, a.card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.07) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
     }
 
-    a.card:hover::before {
-        opacity: 1;
+    .card:hover::before, a.card:hover::before {
+      opacity: 1;
     }
 
-    a.card:hover {
-        transform: translateY(-5px);
-        box-shadow:
-            0 0 25px var(--hover-glow),
-            inset 0 0 10px rgba(255, 255, 255, 0.05);
+    .card:hover, a.card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 0 25px var(--hover-glow),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    /* ML e Blockchain cards especializados */
+    .ml-card {
+      border-left: 3px solid var(--ml-accent);
+    }
+
+    .blockchain-card {
+      border-left: 3px solid var(--blockchain-accent);
     }
 
     /* Conteúdo dentro do card link */
     .card h3 {
-        color: var(--accent);
-        margin-bottom: 0.8rem;
-        font-family: 'IBM Plex Mono', monospace;
-        position: relative; /* Para garantir que fique sobre o ::before */
-        z-index: 1;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ml-card h3 {
+      color: var(--ml-accent);
+    }
+
+    .blockchain-card h3 {
+      color: var(--blockchain-accent);
     }
 
     .card p {
-        margin-bottom: 1rem;
-        position: relative; /* Para garantir que fique sobre o ::before */
-        z-index: 1;
-        opacity: 0.9; /* Levemente mais suave */
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .tech-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px 8px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .ml-tag {
+      background: rgba(102, 73, 184, 0.2);
+      border: 1px solid rgba(102, 73, 184, 0.3);
+    }
+
+    .blockchain-tag {
+      background: rgba(255, 159, 28, 0.2);
+      border: 1px solid rgba(255, 159, 28, 0.3);
     }
 
     .icon-links {
-        display: flex; /* Alinha ícones lado a lado */
-        gap: 1rem; /* Espaço entre ícones */
-        margin-top: auto; /* Empurra para o final do card se houver espaço */
-        position: relative; /* Para garantir que fique sobre o ::before */
-        z-index: 1;
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .icon-links a {
-        color: var(--link-color); /* Cor específica para ícones de link */
-        font-size: 1.5rem; /* Tamanho dos ícones (emojis) */
-        text-decoration: none;
-        transition: transform 0.2s ease, filter 0.2s ease;
+      color: var(--link-color);
+      text-decoration: none;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
     .icon-links a:hover {
-        transform: translateY(-2px) scale(1.1); /* Efeito de levantar e aumentar */
-        filter: drop-shadow(0 0 5px var(--accent));
+      transform: translateY(-2px) scale(1.1);
+      filter: drop-shadow(0 0 5px var(--accent));
     }
 
     /* Seção de Tecnologias */
     .tech-section {
-        /* Estilos específicos se necessário */
+      /* Estilos específicos se necessário */
     }
 
     .tech-grid {
-        display: grid;
-        /* Cria colunas responsivas: mínimo 100px, máximo 1fr (distribui igual) */
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 1.5rem; /* Espaçamento entre os itens de tecnologia */
-        justify-items: center; /* Centraliza itens no eixo horizontal da célula do grid */
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
     }
 
     .tech-item {
-        display: flex;
-        flex-direction: column; /* Empilha imagem sobre o texto */
-        align-items: center; /* Centraliza horizontalmente */
-        text-align: center;
-        gap: 0.5rem; /* Espaço entre imagem e texto */
-        padding: 1rem; /* Espaçamento interno */
-        background-color: rgba(255, 255, 255, 0.03); /* Fundo sutil */
-        border-radius: 8px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background-color: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .tech-item:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 0 15px var(--hover-glow);
+      transform: translateY(-4px);
+      box-shadow: 0 0 15px var(--hover-glow);
     }
 
     .tech-item img {
-        width: 60px; /* Largura fixa para o ícone */
-        height: 60px; /* Altura fixa para o ícone (quadrado) */
-        object-fit: contain; /* Ajusta imagem dentro do espaço sem cortar, se não for quadrada */
-        /* object-fit: cover; -> Alternativa se quiser cortar para preencher */
-        border-radius: 4px; /* Leve arredondamento se desejar */
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 4px;
     }
 
     .tech-item span {
-        font-size: 0.9rem;
-        color: var(--fg);
-        opacity: 0.9;
+      font-size: 0.9rem;
+      color: var(--fg);
+      opacity: 0.9;
     }
-
 
     footer {
       margin-top: 3rem;
@@ -270,214 +308,323 @@
     }
 
     /* --- Animação de Fluxo de Dados --- */
-  .data-flow-animation {
-    position: fixed; /* Fica fixo na tela */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Fica atrás do conteúdo principal, mas acima do body::before */
-    overflow: hidden; /* Garante que os dots sumam fora da tela */
-    pointer-events: none; /* Não interfere com cliques */
-  }
+    .data-flow-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-  .dot {
-    position: absolute;
-    width: 4px; /* Tamanho do ponto */
-    height: 4px; /* Tamanho do ponto */
-    border-radius: 50%; /* Faz ser um círculo */
-    background-color: var(--secondary-accent); /* Cor ciano para os pontos */
-    box-shadow: 0 0 6px var(--secondary-accent), 0 0 10px var(--secondary-accent); /* Efeito de brilho */
-    animation: dataFlow 15s linear infinite; /* Aplica a animação */
-    opacity: 0; /* Começa invisível */
-  }
-
-  /* Variações para diferentes pontos usando nth-child */
-  /* Isso cria um efeito mais dinâmico e menos repetitivo */
-
-  .dot:nth-child(1) {
-    left: 10%; /* Posição inicial horizontal */
-    animation-delay: 0s; /* Atraso para começar */
-    animation-duration: 12s; /* Duração da animação */
-  }
-
-  .dot:nth-child(2) {
-    left: 30%;
-    animation-delay: -5s; /* Começa em um ponto diferente da animação */
-    animation-duration: 18s;
-    width: 3px; height: 3px; /* Um pouco menor */
-    background-color: var(--accent); /* Cor amarela */
-    box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
-  }
-
-  .dot:nth-child(3) {
-    left: 50%;
-    animation-delay: -2s;
-    animation-duration: 10s;
-  }
-
-  .dot:nth-child(4) {
-    left: 70%;
-    animation-delay: -10s;
-    animation-duration: 15s;
-    width: 5px; height: 5px; /* Um pouco maior */
-  }
-
-   .dot:nth-child(5) {
-    left: 90%;
-    animation-delay: -7s;
-    animation-duration: 13s;
-     background-color: var(--accent); /* Cor amarela */
-     box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
-  }
-
-  .dot:nth-child(6) {
-    left: 5%;
-    animation-delay: -3s;
-    animation-duration: 20s;
-  }
-
-   .dot:nth-child(7) {
-    left: 25%;
-    animation-delay: -8s;
-    animation-duration: 11s;
-     width: 3px; height: 3px;
-  }
-
-   .dot:nth-child(8) {
-    left: 45%;
-    animation-delay: -1s;
-    animation-duration: 16s;
-     background-color: var(--accent);
-     box-shadow: 0 0 5px var(--accent), 0 0 8px var(--accent);
-  }
-
-   .dot:nth-child(9) {
-    left: 65%;
-    animation-delay: -12s;
-    animation-duration: 19s;
-  }
-
-   .dot:nth-child(10) {
-    left: 85%;
-    animation-delay: -6s;
-    animation-duration: 9s;
-    width: 5px; height: 5px;
-    background-color: var(--accent);
-    box-shadow: 0 0 7px var(--accent), 0 0 12px var(--accent);
-  }
-
-
-  /* A animação em si */
-  @keyframes dataFlow {
-    0% {
-      transform: translateY(-10vh); /* Começa um pouco acima da tela */
+    .dot {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: var(--secondary-accent);
+      box-shadow: 0 0 4px var(--secondary-accent), 0 0 6px var(--secondary-accent);
+      animation: dataFlow 25s linear infinite;
       opacity: 0;
     }
-    10%, 90% {
-      opacity: 0.8; /* Fica visível durante a maior parte do percurso */
-    }
-    100% {
-      transform: translateY(110vh); /* Termina bem abaixo da tela */
-      opacity: 0;
-    }
-  }
 
-  /* Ajuste o z-index do body::before se necessário */
-  body::before {
-      /* ... seus estilos existentes ... */
-      z-index: -2; /* Garante que fique atrás da animação .data-flow-animation */
-  }
+    .dot:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 30s;
+    }
 
+    .dot:nth-child(2) {
+      left: 30%;
+      animation-delay: -5s;
+      animation-duration: 40s;
+      width: 2px; height: 2px;
+      background-color: var(--accent);
+      box-shadow: 0 0 3px var(--accent), 0 0 5px var(--accent);
+    }
+
+    .dot:nth-child(3) {
+      left: 50%;
+      animation-delay: -2s;
+      animation-duration: 35s;
+    }
+
+    .dot:nth-child(4) {
+      left: 70%;
+      animation-delay: -10s;
+      animation-duration: 42s;
+      width: 3px; height: 3px;
+    }
+
+    .dot:nth-child(5) {
+      left: 90%;
+      animation-delay: -7s;
+      animation-duration: 38s;
+      background-color: var(--accent);
+      box-shadow: 0 0 3px var(--accent), 0 0 5px var(--accent);
+    }
+
+    .dot:nth-child(6) {
+      left: 5%;
+      animation-delay: -3s;
+      animation-duration: 45s;
+    }
+
+    .dot:nth-child(7) {
+      left: 25%;
+      animation-delay: -8s;
+      animation-duration: 37s;
+      width: 2px; height: 2px;
+    }
+
+    .dot:nth-child(8) {
+      left: 45%;
+      animation-delay: -1s;
+      animation-duration: 39s;
+      background-color: var(--accent);
+      box-shadow: 0 0 3px var(--accent), 0 0 4px var(--accent);
+    }
+
+    .dot:nth-child(9) {
+      left: 65%;
+      animation-delay: -12s;
+      animation-duration: 41s;
+    }
+
+    .dot:nth-child(10) {
+      left: 85%;
+      animation-delay: -6s;
+      animation-duration: 32s;
+      width: 3px; height: 3px;
+      background-color: var(--ml-accent);
+      box-shadow: 0 0 3px var(--ml-accent), 0 0 4px var(--ml-accent);
+    }
+
+    .dot:nth-child(11) {
+      left: 15%;
+      animation-delay: -9s;
+      animation-duration: 36s;
+      width: 2px; height: 2px;
+      background-color: var(--blockchain-accent);
+      box-shadow: 0 0 3px var(--blockchain-accent), 0 0 4px var(--blockchain-accent);
+    }
+
+    /* A animação em si */
+    @keyframes dataFlow {
+      0% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+      10%, 90% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Responsividade para dispositivos móveis */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .top-image {
+        width: 200px;
+        height: 200px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Animação de fluxo de dados -->
+  <div class="data-flow-animation">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
 
-    <div class="container">
+  <div class="container">
+    <img src="/api/placeholder/400/400" alt="Portfolio Banner" class="top-image">
 
-        <img src="top_image.jpg" alt="Banner do Portfólio" class="top-image">
+    <header>
+      <h1>Selene Soares</h1>
+      <p>Weaving intelligence between blockchain networks and neural pathways.</p>
+    </header>
 
-        <header>
-          <h1>Selene Soares</h1> <p>Scaling intelligence from the edge to the cloud.</p> </header>
+    <section id="about">
+      <h2 class="section-title">About me</h2>
+      <p>I'm a Machine Learning Engineer and Blockchain Developer specializing in the intersection of decentralized systems and artificial intelligence. Currently pursuing a Ph.D. in Computer Science at UFF, my research focuses on federated learning for blockchain networks and implementing neural network architectures on distributed ledgers. When I'm not coding or researching, I enjoy sci-fi novels, digital art, and experimenting with algorithmic music generation.</p>
+    </section>
 
-        <section id="sobre">
-          <h2 class="section-title">About me</h2>
-          <p>I'm a Computer Science student at UFF, working on research projects involving early-exit architectures for deep learning. My interests span computer networks, distributed systems, edge computing, and machine learning engineering. Outside of tech, I enjoy series, board games, and books.</p> </section>
-
-        <section id="tecnologias" class="tech-section">
-          <h2 class="section-title">Tecnologias Utilizadas</h2>
-          <div class="tech-grid">
-            <div class="tech-item">
-              <img src="python_icon.png" alt="Ícone Python">
-              <span>Python</span>
-            </div>
-            <div class="tech-item">
-               <img src="caminho/para/icone-docker.svg" alt="Ícone Docker">
-              <span>Docker</span>
-            </div>
-            <div class="tech-item">
-               <img src="caminho/para/icone-kubernetes.svg" alt="Ícone Kubernetes">
-              <span>Kubernetes</span>
-            </div>
-             <div class="tech-item">
-               <img src="caminho/para/icone-aws.svg" alt="Ícone AWS">
-              <span>AWS</span>
-            </div>
-             <div class="tech-item">
-               <img src="caminho/para/icone-linux.svg" alt="Ícone Linux">
-              <span>Linux</span>
-            </div>
-            </div>
-        </section>
-
-        <section id="projetos">
-            <h2 class="section-title">Projetos</h2>
-            <div class="card-grid">
-              <a href="#" class="card">
-                <h3>Projeto Exemplo 1</h3>
-                <p>Implementação de um sistema de monitoramento de rede usando Prometheus e Grafana.</p>
-                </a>
-  
-              <a href="#" class="card">
-                <h3>Projeto Exemplo 2</h3>
-                <p>Descrição do segundo projeto que também é um link.</p>
-                </a>
-              </div>
-          </section>
-  
-          <section id="pesquisa">
-            <h2 class="section-title">Pesquisa</h2>
-            <div class="card-grid">
-               <div class="card">
-                <h3>Estudo sobre Latência em Redes 5G</h3>
-                <p>Análise comparativa de protocolos de comunicação para aplicações IoT em redes 5G.</p>
-                </div>
-  
-               <a href="#" class="card">
-                 <h3>Publicação XYZ</h3>
-                 <p>Resumo da publicação que tem um link principal associado.</p>
-                </a>
-              </div>
-          </section>
-  
-          <section id="ensino">
-            <h2 class="section-title">Ensino</h2>
-            <div class="card-grid">
-               <div class="card">
-                <h3>Redes de Computadores Avançadas</h3>
-                <p>Curso focado em topologias complexas, roteamento dinâmico e segurança de redes.</p>
-                </div>
-  
-              <div class="card">
-                <h3>Introdução a Sistemas Distribuídos</h3>
-                <p>Conteúdo ministrado sobre conceitos fundamentais.</p>
-                </div>
-              </div>
-          </section>
-
-        <footer>
-          <p>© 2025 Seu Nome. Todos os direitos reservados.</p> </footer>
+    <section id="skills" class="tech-section">
+      <h2 class="section-title">Technologies & Skills</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="Python Icon">
+          <span>Python</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="PyTorch Icon">
+          <span>PyTorch</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="TensorFlow Icon">
+          <span>TensorFlow</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="Solidity Icon">
+          <span>Solidity</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="Ethereum Icon">
+          <span>Ethereum</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="Docker Icon">
+          <span>Docker</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="Kubernetes Icon">
+          <span>Kubernetes</span>
+        </div>
+        <div class="tech-item">
+          <img src="/api/placeholder/60/60" alt="AWS Icon">
+          <span>AWS</span>
+        </div>
       </div>
+    </section>
 
-  </body>
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="card-grid">
+        <a href="#" class="card ml-card">
+          <h3>NeuroChain</h3>
+          <p>A decentralized machine learning platform leveraging blockchain for secure model training and data sharing across multiple organizations.</p>
+          <div class="tags">
+            <span class="tech-tag ml-tag">PyTorch</span>
+            <span class="tech-tag blockchain-tag">Ethereum</span>
+            <span class="tech-tag">IPFS</span>
+          </div>
+          <div class="icon-links">
+            <a href="#"><span>🔗 GitHub</span></a>
+            <a href="#"><span>📄 Paper</span></a>
+          </div>
+        </a>
+
+        <a href="#" class="card blockchain-card">
+          <h3>DeFi Anomaly Detector</h3>
+          <p>Smart contract security system using transformer models to detect fraudulent transactions and vulnerabilities in DeFi protocols.</p>
+          <div class="tags">
+            <span class="tech-tag ml-tag">TensorFlow</span>
+            <span class="tech-tag blockchain-tag">Solidity</span>
+            <span class="tech-tag">GraphQL</span>
+          </div>
+          <div class="icon-links">
+            <a href="#"><span>🔗 Demo</span></a>
+            <a href="#"><span>📦 Code</span></a>
+          </div>
+        </a>
+
+        <a href="#" class="card ml-card">
+          <h3>Federated Transformer</h3>
+          <p>Privacy-preserving NLP system that allows model training across multiple devices without sharing sensitive data.</p>
+          <div class="tags">
+            <span class="tech-tag ml-tag">Hugging Face</span>
+            <span class="tech-tag ml-tag">PyTorch</span>
+            <span class="tech-tag">Flower</span>
+          </div>
+          <div class="icon-links">
+            <a href="#"><span>🔬 Research</span></a>
+            <a href="#"><span>📊 Results</span></a>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2 class="section-title">Research</h2>
+      <div class="card-grid">
+        <div class="card ml-card">
+          <h3>Early-Exit Neural Networks for Edge Devices</h3>
+          <p>Novel architecture that allows deep neural networks to adaptively decide when to exit computation based on input complexity, optimizing for resource-constrained environments.</p>
+          <div class="tags">
+            <span class="tech-tag ml-tag">Edge AI</span>
+            <span class="tech-tag ml-tag">CNN</span>
+            <span class="tech-tag">Model Optimization</span>
+          </div>
+        </div>
+
+        <a href="#" class="card blockchain-card">
+          <h3>Consensus Mechanisms for ML Model Verification</h3>
+          <p>Blockchain-based framework for validating machine learning model updates in a decentralized setting using novel proof mechanisms.</p>
+          <div class="tags">
+            <span class="tech-tag blockchain-tag">Consensus</span>
+            <span class="tech-tag ml-tag">Federated Learning</span>
+            <span class="tech-tag">Zero-Knowledge Proofs</span>
+          </div>
+          <div class="icon-links">
+            <a href="#"><span>📄 Publication</span></a>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="teaching">
+      <h2 class="section-title">Teaching & Courses</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Advanced Deep Learning</h3>
+          <p>Graduate-level course covering transformer architectures, self-supervised learning, and neural network optimization strategies.</p>
+          <div class="tags">
+            <span class="tech-tag ml-tag">PyTorch</span>
+            <span class="tech-tag ml-tag">NLP</span>
+            <span class="tech-tag ml-tag">Computer Vision</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Blockchain Systems & Development</h3>
+          <p>Comprehensive course on distributed ledger technology, smart contract programming, and dApp development.</p>
+          <div class="tags">
+            <span class="tech-tag blockchain-tag">Solidity</span>
+            <span class="tech-tag blockchain-tag">Ethereum</span>
+            <span class="tech-tag blockchain-tag">Web3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Selene Soares. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
 </html>
