@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ML & Blockchain Portfolio</title>
+  <title>My ML & Blockchain Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a060d;
-      --fg: #e0e0e0;
-      --accent: #FFF8C4; /* Amarelo Pálido */
-      --secondary-accent: #00BCd4; /* Ciano para efeitos */
+      --fg: #f0f0f0; /* Adjusted to a readable white */
+      --accent: #FFF8C4;
+      --secondary-accent: #00BCd4;
       --card-bg: rgba(255, 255, 255, 0.04);
       --hover-glow: rgba(17, 0, 9, 0.8);
-      --link-color: #90CAF9; /* Azul claro para links */
       --ml-accent: #6649B8; /* Roxo para ML */
       --blockchain-accent: #FF9F1C; /* Laranja para Blockchain */
     }
@@ -34,7 +33,7 @@
       overflow-x: hidden;
     }
 
-    /* Efeito de rede animado */
+    /* Simplified static background */
     body::before {
       content: '';
       position: fixed;
@@ -42,17 +41,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.03) 0%, transparent 60%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      background: radial-gradient(circle at 50% 50%, rgba(0, 188, 212, 0.03) 0%, transparent 60%);
       opacity: 0.1;
       z-index: -2;
-      animation: networkFlow 30s linear infinite;
-    }
-
-    @keyframes networkFlow {
-      0% { background-position: 0 0; }
-      100% { background-position: 100% 100%; }
     }
 
     .container {
@@ -69,21 +60,16 @@
       overflow: hidden;
     }
 
+    /* Static background element */
     .container::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(45deg, transparent 60%, rgba(0, 188, 212, 0.05) 100%);
-      animation: rotate 40s linear infinite;
       z-index: -1;
-    }
-
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
 
     /* Imagem no topo */
@@ -144,11 +130,8 @@
       gap: 1.5rem;
     }
 
-    /* Estilo base para os cards que agora são links */
-    .card, a.card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
+    /* Simplified card style */
+    .card {
       background-color: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.05);
       padding: 1.5rem;
@@ -158,7 +141,7 @@
       overflow: hidden;
     }
 
-    .card::before, a.card::before {
+    .card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -171,11 +154,11 @@
       z-index: 0;
     }
 
-    .card:hover::before, a.card:hover::before {
+    .card:hover::before {
       opacity: 1;
     }
 
-    .card:hover, a.card:hover {
+    .card:hover {
       transform: translateY(-5px);
       box-shadow:
         0 0 25px var(--hover-glow),
@@ -191,7 +174,7 @@
       border-left: 3px solid var(--blockchain-accent);
     }
 
-    /* Conteúdo dentro do card link */
+    /* Conteúdo dentro do card */
     .card h3 {
       color: var(--accent);
       margin-bottom: 0.8rem;
@@ -236,33 +219,7 @@
       border: 1px solid rgba(255, 159, 28, 0.3);
     }
 
-    .icon-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .icon-links a {
-      color: var(--link-color);
-      text-decoration: none;
-      transition: transform 0.2s ease, filter 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .icon-links a:hover {
-      transform: translateY(-2px) scale(1.1);
-      filter: drop-shadow(0 0 5px var(--accent));
-    }
-
     /* Seção de Tecnologias */
-    .tech-section {
-      /* Estilos específicos se necessário */
-    }
-
     .tech-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -307,125 +264,6 @@
       opacity: 0.7;
     }
 
-    /* --- Animação de Fluxo de Dados --- */
-    .data-flow-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .dot {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background-color: var(--secondary-accent);
-      box-shadow: 0 0 4px var(--secondary-accent), 0 0 6px var(--secondary-accent);
-      animation: dataFlow 25s linear infinite;
-      opacity: 0;
-    }
-
-    .dot:nth-child(1) {
-      left: 10%;
-      animation-delay: 0s;
-      animation-duration: 30s;
-    }
-
-    .dot:nth-child(2) {
-      left: 30%;
-      animation-delay: -5s;
-      animation-duration: 40s;
-      width: 2px; height: 2px;
-      background-color: var(--accent);
-      box-shadow: 0 0 3px var(--accent), 0 0 5px var(--accent);
-    }
-
-    .dot:nth-child(3) {
-      left: 50%;
-      animation-delay: -2s;
-      animation-duration: 35s;
-    }
-
-    .dot:nth-child(4) {
-      left: 70%;
-      animation-delay: -10s;
-      animation-duration: 42s;
-      width: 3px; height: 3px;
-    }
-
-    .dot:nth-child(5) {
-      left: 90%;
-      animation-delay: -7s;
-      animation-duration: 38s;
-      background-color: var(--accent);
-      box-shadow: 0 0 3px var(--accent), 0 0 5px var(--accent);
-    }
-
-    .dot:nth-child(6) {
-      left: 5%;
-      animation-delay: -3s;
-      animation-duration: 45s;
-    }
-
-    .dot:nth-child(7) {
-      left: 25%;
-      animation-delay: -8s;
-      animation-duration: 37s;
-      width: 2px; height: 2px;
-    }
-
-    .dot:nth-child(8) {
-      left: 45%;
-      animation-delay: -1s;
-      animation-duration: 39s;
-      background-color: var(--accent);
-      box-shadow: 0 0 3px var(--accent), 0 0 4px var(--accent);
-    }
-
-    .dot:nth-child(9) {
-      left: 65%;
-      animation-delay: -12s;
-      animation-duration: 41s;
-    }
-
-    .dot:nth-child(10) {
-      left: 85%;
-      animation-delay: -6s;
-      animation-duration: 32s;
-      width: 3px; height: 3px;
-      background-color: var(--ml-accent);
-      box-shadow: 0 0 3px var(--ml-accent), 0 0 4px var(--ml-accent);
-    }
-
-    .dot:nth-child(11) {
-      left: 15%;
-      animation-delay: -9s;
-      animation-duration: 36s;
-      width: 2px; height: 2px;
-      background-color: var(--blockchain-accent);
-      box-shadow: 0 0 3px var(--blockchain-accent), 0 0 4px var(--blockchain-accent);
-    }
-
-    /* A animação em si */
-    @keyframes dataFlow {
-      0% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
-      10%, 90% {
-        opacity: 0.3;
-      }
-      100% {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
-    }
-
     /* Responsividade para dispositivos móveis */
     @media (max-width: 768px) {
       body {
@@ -456,32 +294,17 @@
   </style>
 </head>
 <body>
-  <!-- Animação de fluxo de dados -->
-  <div class="data-flow-animation">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-
   <div class="container">
     <img src="/api/placeholder/400/400" alt="Portfolio Banner" class="top-image">
 
     <header>
       <h1>Selene Soares</h1>
-      <p>Weaving intelligence between blockchain networks and neural pathways.</p>
+      <p>Decentralized learning, verifiable results.</p>
     </header>
 
     <section id="about">
       <h2 class="section-title">About me</h2>
-      <p>I'm a Machine Learning Engineer and Blockchain Developer specializing in the intersection of decentralized systems and artificial intelligence. Currently pursuing a Ph.D. in Computer Science at UFF, my research focuses on federated learning for blockchain networks and implementing neural network architectures on distributed ledgers. When I'm not coding or researching, I enjoy sci-fi novels, digital art, and experimenting with algorithmic music generation.</p>
+      <p>I'm an undergraduate Computer Science student driven by curiosity and a passion for solving complex problems — a mindset I developed through university competitive programming. My main interests lie in Machine Learning and Blockchain, and I also enjoy exploring data analysis and IoT. Currently, I’m conducting research on optimizing neural network inference using early-exit architectures.</p>
     </section>
 
     <section id="skills" class="tech-section">
@@ -523,107 +346,19 @@
     </section>
 
     <section id="projects">
-      <h2 class="section-title">Projects</h2>
-      <div class="card-grid">
-        <a href="#" class="card ml-card">
-          <h3>NeuroChain</h3>
-          <p>A decentralized machine learning platform leveraging blockchain for secure model training and data sharing across multiple organizations.</p>
-          <div class="tags">
-            <span class="tech-tag ml-tag">PyTorch</span>
-            <span class="tech-tag blockchain-tag">Ethereum</span>
-            <span class="tech-tag">IPFS</span>
-          </div>
-          <div class="icon-links">
-            <a href="#"><span>🔗 GitHub</span></a>
-            <a href="#"><span>📄 Paper</span></a>
-          </div>
-        </a>
-
-        <a href="#" class="card blockchain-card">
-          <h3>DeFi Anomaly Detector</h3>
-          <p>Smart contract security system using transformer models to detect fraudulent transactions and vulnerabilities in DeFi protocols.</p>
-          <div class="tags">
-            <span class="tech-tag ml-tag">TensorFlow</span>
-            <span class="tech-tag blockchain-tag">Solidity</span>
-            <span class="tech-tag">GraphQL</span>
-          </div>
-          <div class="icon-links">
-            <a href="#"><span>🔗 Demo</span></a>
-            <a href="#"><span>📦 Code</span></a>
-          </div>
-        </a>
-
-        <a href="#" class="card ml-card">
-          <h3>Federated Transformer</h3>
-          <p>Privacy-preserving NLP system that allows model training across multiple devices without sharing sensitive data.</p>
-          <div class="tags">
-            <span class="tech-tag ml-tag">Hugging Face</span>
-            <span class="tech-tag ml-tag">PyTorch</span>
-            <span class="tech-tag">Flower</span>
-          </div>
-          <div class="icon-links">
-            <a href="#"><span>🔬 Research</span></a>
-            <a href="#"><span>📊 Results</span></a>
-          </div>
-        </a>
-      </div>
+      
     </section>
 
     <section id="research">
-      <h2 class="section-title">Research</h2>
-      <div class="card-grid">
-        <div class="card ml-card">
-          <h3>Early-Exit Neural Networks for Edge Devices</h3>
-          <p>Novel architecture that allows deep neural networks to adaptively decide when to exit computation based on input complexity, optimizing for resource-constrained environments.</p>
-          <div class="tags">
-            <span class="tech-tag ml-tag">Edge AI</span>
-            <span class="tech-tag ml-tag">CNN</span>
-            <span class="tech-tag">Model Optimization</span>
-          </div>
-        </div>
-
-        <a href="#" class="card blockchain-card">
-          <h3>Consensus Mechanisms for ML Model Verification</h3>
-          <p>Blockchain-based framework for validating machine learning model updates in a decentralized setting using novel proof mechanisms.</p>
-          <div class="tags">
-            <span class="tech-tag blockchain-tag">Consensus</span>
-            <span class="tech-tag ml-tag">Federated Learning</span>
-            <span class="tech-tag">Zero-Knowledge Proofs</span>
-          </div>
-          <div class="icon-links">
-            <a href="#"><span>📄 Publication</span></a>
-          </div>
-        </a>
-      </div>
+     
     </section>
 
     <section id="teaching">
-      <h2 class="section-title">Teaching & Courses</h2>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Advanced Deep Learning</h3>
-          <p>Graduate-level course covering transformer architectures, self-supervised learning, and neural network optimization strategies.</p>
-          <div class="tags">
-            <span class="tech-tag ml-tag">PyTorch</span>
-            <span class="tech-tag ml-tag">NLP</span>
-            <span class="tech-tag ml-tag">Computer Vision</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Blockchain Systems & Development</h3>
-          <p>Comprehensive course on distributed ledger technology, smart contract programming, and dApp development.</p>
-          <div class="tags">
-            <span class="tech-tag blockchain-tag">Solidity</span>
-            <span class="tech-tag blockchain-tag">Ethereum</span>
-            <span class="tech-tag blockchain-tag">Web3</span>
-          </div>
-        </div>
-      </div>
+      
     </section>
 
     <footer>
-      <p>© 2025 Selene Soares. All rights reserved.</p>
+      <p> 2025 Selene Soares.</p>
     </footer>
   </div>
 </body>
