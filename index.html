@@ -1,413 +1,461 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selene Soares | Portfolio</title>
-    <meta name="description" content="Portfolio of Selene Soares - Projects and Publications">
+    <title>Selene Soares | Data Scientist</title>
     
-    <!-- Google Fonts for a modern, elegant look -->
+    <!-- Fonts: Inter for UI, JetBrains Mono for Code/Tech elements -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        selene: {
+                            dark: '#0f0c15',      // Deepest background
+                            card: '#1a1625',      // Card background
+                            accent: '#fbbf24',    // Warm Gold (Earrings)
+                            glow: '#c084fc',      // Soft Purple
+                            text: '#e2e8f0',      // Main text
+                            muted: '#94a3b8'      // Subtext
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* 
-         * DESIGN SYSTEM & VARIABLES
-         * Inspired by the warm, glowing aesthetic of the reference image.
-         */
-        :root {
-            /* Palette extracted from image mood */
-            --bg-deep: #0f0c1a;       /* Deep purple/black background */
-            --bg-card: #1a1625;       /* Slightly lighter for cards */
-            --bg-card-hover: #231e32; /* Hover state */
-            
-            --accent-gold: #ffcc5c;   /* Earring highlight color */
-            --accent-blue: #4a69bd;   /* Jacket blue */
-            --accent-glow: #ff9f43;   /* Warm sunset glow */
-            
-            --text-main: #f0f0f0;
-            --text-muted: #a09bb3;
-            
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-            --font-serif: 'Playfair Display', serif;
-            
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        /* RESET & BASE */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        /* Custom CSS for effects not easily handled by Tailwind utilities */
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            overflow-x: hidden;
-            /* Subtle ambient gradient background */
+            background-color: #0f0c15;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(74, 105, 189, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 159, 67, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 15% 50%, rgba(192, 132, 252, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(251, 191, 36, 0.05), transparent 25%);
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
+        /* Tech Grid Background */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
         }
 
-        ul {
-            list-style: none;
-        }
-
-        /* LAYOUT UTILITIES */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, var(--text-main), var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content {
-            z-index: 2;
-            max-width: 800px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 600;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: var(--text-muted);
-            font-weight: 300;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-
-        .cta-button:hover {
-            background: var(--accent-gold);
-            color: var(--bg-deep);
-            border-color: var(--accent-gold);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 204, 92, 0.3);
-        }
-
-        /* CARD GRID LAYOUT */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        /* CARD COMPONENT */
-        .card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(26, 22, 37, 0.6);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* The "Glow" effect on hover */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(74, 105, 189, 0.1), transparent 40%);
-            opacity: 0;
-            transition: var(--transition);
-            pointer-events: none;
+        .glass-card:hover {
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 204, 92, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0c15;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fbbf24;
         }
 
-        .card:hover::before {
-            opacity: 1;
+        /* Glow Effects */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
         }
-
-        .card-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .card-footer {
-            margin-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 1.5rem;
-        }
-
-        .tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent-gold);
-            border: 1px solid rgba(255, 204, 92, 0.1);
-        }
-
-        .card-link {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-link:hover {
-            color: var(--accent-gold);
-        }
-
-        .card-link svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.2s;
-        }
-
-        .card-link:hover svg {
-            transform: translateX(4px);
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 4rem 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: 4rem;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
+        
+        .avatar-glow {
+            box-shadow: 0 0 40px -10px rgba(251, 191, 36, 0.4);
         }
     </style>
 </head>
-<body>
+<body class="text-selene-text antialiased selection:bg-selene-accent selection:text-selene-dark">
 
-    <!-- HERO SECTION -->
-    <header class="hero">
-        <div class="container hero-content">
-            <h1>Selene Soares</h1>
-            <p>Frontend Developer & UI/UX Designer</p>
-            <a href="#projects" class="cta-button">View My Work</a>
+    <!-- Background Grid -->
+    <div class="fixed inset-0 grid-bg z-[-1] pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 border-b border-white/5 bg-selene-dark/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-mono font-bold text-lg tracking-tighter hover:text-selene-accent transition-colors">
+                <span class="text-selene-accent">&lt;</span>SS<span class="text-selene-accent">/&gt;</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-selene-muted">
+                <a href="#about" class="hover:text-white transition-colors">Stack</a>
+                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+                <a href="#publications" class="hover:text-white transition-colors">Publications</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+            <!-- Mobile Menu Button (Icon only for simplicity) -->
+            <button class="md:hidden text-selene-text">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <main class="container">
-        
-        <!-- PROJECTS SECTION -->
-        <section id="projects">
-            <h2 class="section-title">Selected Projects</h2>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <!-- Decorative blurred orbs -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
             
-            <div class="grid">
-                <!-- 
-                    HOW TO ADD A PROJECT:
-                    1. Copy the entire <div class="card"> block below.
-                    2. Paste it inside this grid container.
-                    3. Edit the text, links, and tags.
-                -->
+            <!-- Text Content -->
+            <div class="order-2 md:order-1 space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-selene-accent">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span>Open to Opportunities</span>
+                </div>
                 
-                <!-- Project 1 -->
-                <article class="card">
-                    <div class="card-header">
-                        <h3>Ethereal Dashboard</h3>
-                        <p>A responsive analytics dashboard featuring dark mode by default and real-time data visualization using D3.js.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            <span class="tag">React</span>
-                            <span class="tag">D3.js</span>
-                        </div>
-                        <a href="#" class="card-link" target="_blank" rel="noopener noreferrer">
-                            View Project
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </div>
-                </article>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+                    Selene <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-purple-400 glow-text">Soares</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-selene-muted font-light">
+                    Data Scientist & ML Engineer. <br>
+                    <span class="text-sm font-mono text-selene-accent opacity-80 block mt-2">
+                        > Transforming raw data into actionable intelligence.
+                    </span>
+                </p>
 
-                <!-- Project 2 -->
-                <article class="card">
-                    <div class="card-header">
-                        <h3>Lumina UI Kit</h3>
-                        <p>An open-source component library focusing on accessibility and glassmorphism aesthetics.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            <span class="tag">Vue</span>
-                            <span class="tag">SCSS</span>
-                        </div>
-                        <a href="#" class="card-link" target="_blank" rel="noopener noreferrer">
-                            View Project
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Project 3 -->
-                <article class="card">
-                    <div class="card-header">
-                        <h3>Neon Commerce</h3>
-                        <p>A headless e-commerce storefront built for performance and high conversion rates.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            <span class="tag">Next.js</span>
-                            <span class="tag">Stripe</span>
-                        </div>
-                        <a href="#" class="card-link" target="_blank" rel="noopener noreferrer">
-                            View Project
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </div>
-                </article>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#projects" class="px-6 py-3 rounded-lg bg-selene-accent text-selene-dark font-bold hover:bg-white transition-all shadow-[0_0_20px_rgba(251,191,36,0.3)]">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="px-6 py-3 rounded-lg border border-white/20 hover:bg-white/5 transition-all font-medium">
+                        Contact Me
+                    </a>
+                </div>
+                
+                <!-- Social Links Mini -->
+                <div class="flex gap-4 pt-4 text-selene-muted">
+                    <a href="#" class="hover:text-white hover:scale-110 transition-transform"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="hover:text-blue-400 hover:scale-110 transition-transform"><i class="fab fa-linkedin text-xl"></i></a>
+                    <a href="#" class="hover:text-sky-400 hover:scale-110 transition-transform"><i class="fab fa-twitter text-xl"></i></a>
+                </div>
             </div>
-        </section>
 
-        <!-- PUBLICATIONS SECTION -->
-        <section id="publications">
-            <h2 class="section-title">Publications</h2>
-            
-            <div class="grid">
-                <!-- Publication 1 -->
-                <article class="card">
-                    <div class="card-header">
-                        <h3>The Future of CSS Architecture</h3>
-                        <p>Exploring modern methodologies for scalable styling in large-scale applications.</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            <span class="tag">Article</span>
-                            <span class="tag">CSS</span>
-                        </div>
-                        <a href="#" class="card-link" target="_blank" rel="noopener noreferrer">
-                            Read More
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
-                    </div>
-                </article>
+            <!-- Image Content -->
+            <div class="order-1 md:order-2 flex justify-center md:justify-end relative">
+                <!-- Background Glow behind image -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-purple-500/20 rounded-full blur-2xl transform scale-90"></div>
+                
+                <!-- Profile Image Container -->
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl avatar-glow animate-float">
+                    <!-- 
+                        IMPORTANT: Replace the src below with your actual image file path.
+                        For this demo, I am using a placeholder that matches the description.
+                    -->
+                    <img src="https://i.imgur.com/8Q5Z7fP.png" alt="Selene Soares" class="w-full h-full object-cover">
+                </div>
 
-                <!-- Publication 2 -->
-                <article class="card">
-                    <div class="card-header">
-                        <h3>Designing for Dark Mode</h3>
-                        <p>Best practices for color contrast, elevation, and mood in low-light interfaces.</p>
+                <!-- Floating Tech Badge -->
+                <div class="absolute bottom-10 -left-4 glass-card px-4 py-2 rounded-lg flex items-center gap-3 animate-float" style="animation-delay: 2s;">
+                    <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center text-blue-400">
+                        <i class="fab fa-python"></i>
                     </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            <span class="tag">UX Design</span>
-                            <span class="tag">Guide</span>
-                        </div>
-                        <a href="#" class="card-link" target="_blank" rel="noopener noreferrer">
-                            Read More
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
+                    <div>
+                        <p class="text-xs text-selene-muted font-mono">Primary Lang</p>
+                        <p class="text-sm font-bold">Python 3.11</p>
                     </div>
-                </article>
+                </div>
             </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Selene Soares. Crafted with code & creativity.</p>
         </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="about" class="py-20 bg-selene-dark/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Technical Stack</h2>
+                    <p class="text-selene-muted">The tools I use to build data solutions.</p>
+                </div>
+                <div class="hidden md:block h-px flex-1 bg-gradient-to-r from-white/10 to-transparent ml-8 mb-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card p-6 rounded-xl group">
+                    <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Machine Learning</h3>
+                    <p class="text-sm text-selene-muted mb-3">Predictive modeling & deep learning architectures.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">PyTorch</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Scikit-learn</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-6 rounded-xl group">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-database text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Data Engineering</h3>
+                    <p class="text-sm text-selene-muted mb-3">ETL pipelines and large-scale data processing.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">SQL</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Spark</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Airflow</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-6 rounded-xl group">
+                    <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Visualization</h3>
+                    <p class="text-sm text-selene-muted mb-3">Turning complex datasets into clear insights.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Tableau</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">D3.js</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Matplotlib</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-6 rounded-xl group">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-cloud text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Cloud & DevOps</h3>
+                    <p class="text-sm text-selene-muted mb-3">Deployment and infrastructure management.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">AWS</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Docker</span>
+                        <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+                <span class="w-8 h-1 bg-selene-accent rounded-full"></span>
+                Selected Projects
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
+                    <div class="h-48 bg-gradient-to-br from-slate-800 to-slate-900 relative overflow-hidden group">
+                        <!-- Placeholder for project screenshot -->
+                        <div class="absolute inset-0 flex items-center justify-center text-white/10 group-hover:scale-105 transition-transform duration-500">
+                            <i class="fas fa-image text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-selene-dark/80 backdrop-blur px-2 py-1 rounded text-xs font-mono text-selene-accent border border-white/10">
+                            v2.0
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-selene-accent transition-colors">Neural Style Transfer</h3>
+                        <p class="text-selene-muted text-sm mb-4 flex-1">
+                            A deep learning application that applies artistic styles to photographs using Convolutional Neural Networks (CNNs).
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">TensorFlow</span>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project Card 2 -->
+                <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
+                    <div class="h-48 bg-gradient-to-br from-slate-800 to-slate-900 relative overflow-hidden group">
+                         <div class="absolute inset-0 flex items-center justify-center text-white/10 group-hover:scale-105 transition-transform duration-500">
+                            <i class="fas fa-chart-pie text-6xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-selene-accent transition-colors">Market Sentiment Analysis</h3>
+                        <p class="text-selene-muted text-sm mb-4 flex-1">
+                            Real-time NLP pipeline processing Twitter API streams to predict stock market volatility.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">NLP</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">AWS Lambda</span>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fas fa-file-alt"></i> Paper
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project Card 3 -->
+                <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
+                    <div class="h-48 bg-gradient-to-br from-slate-800 to-slate-900 relative overflow-hidden group">
+                         <div class="absolute inset-0 flex items-center justify-center text-white/10 group-hover:scale-105 transition-transform duration-500">
+                            <i class="fas fa-robot text-6xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-selene-accent transition-colors">Autonomous Drone Nav</h3>
+                        <p class="text-selene-muted text-sm mb-4 flex-1">
+                            Reinforcement learning model trained in simulation to navigate complex indoor environments.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="text-xs px-2 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">RL</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Unity</span>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                            <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
+                                <i class="fas fa-play"></i> Video
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="py-20 bg-selene-dark/30">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Publications</h2>
+            
+            <div class="space-y-6">
+                <!-- Pub Item 1 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col md:flex-row md:items-center gap-6 hover:border-selene-accent/30 transition-colors">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white mb-1">Optimizing Gradient Descent for Sparse Data</h3>
+                        <p class="text-sm text-selene-accent font-mono mb-2">ICML 2023 • Oral Presentation</p>
+                        <p class="text-selene-muted text-sm">
+                            Proposed a novel adaptive learning rate scheduler that improves convergence speed by 15% on sparse datasets.
+                        </p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm font-medium transition-colors border border-white/5">
+                            PDF
+                        </a>
+                        <a href="#" class="px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm font-medium transition-colors border border-white/5">
+                            BibTeX
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pub Item 2 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col md:flex-row md:items-center gap-6 hover:border-selene-accent/30 transition-colors">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-white mb-1">Visualizing High-Dimensional Manifolds</h3>
+                        <p class="text-sm text-selene-accent font-mono mb-2">Journal of Data Science, 2022</p>
+                        <p class="text-selene-muted text-sm">
+                            A comparative study of t-SNE, UMAP, and PCA for visualizing genomic data structures.
+                        </p>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm font-medium transition-colors border border-white/5">
+                            PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative overflow-hidden">
+        <!-- Background accent -->
+        <div class="absolute inset-0 bg-gradient-to-t from-selene-accent/5 to-transparent pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl font-bold mb-6">Let's Connect</h2>
+            <p class="text-selene-muted text-lg mb-10">
+                Currently looking for new opportunities in Data Science and AI. <br>
+                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+
+            <a href="mailto:selene@example.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-selene-accent text-selene-dark font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(251,191,36,0.4)]">
+                <i class="fas fa-envelope"></i>
+                Say Hello
+            </a>
+
+            <div class="mt-16 flex justify-center gap-8">
+                <a href="#" class="group flex flex-col items-center gap-2">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl group-hover:bg-selene-accent group-hover:text-selene-dark transition-all">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <span class="text-xs text-selene-muted group-hover:text-white">GitHub</span>
+                </a>
+                <a href="#" class="group flex flex-col items-center gap-2">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-all">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <span class="text-xs text-selene-muted group-hover:text-white">LinkedIn</span>
+                </a>
+                <a href="#" class="group flex flex-col items-center gap-2">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-xl group-hover:bg-sky-500 group-hover:text-white transition-all">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <span class="text-xs text-selene-muted group-hover:text-white">Twitter</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/5 text-center text-selene-muted text-sm">
+        <p>&copy; 2023 Selene Soares. Built with <i class="fas fa-heart text-red-500 mx-1"></i> and Coffee.</p>
     </footer>
 
 </body>
