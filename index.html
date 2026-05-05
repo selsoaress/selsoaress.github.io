@@ -27,12 +27,12 @@
           },
           colors: {
             selene: {
-              dark: '#0f0c15',      // Deepest background
-              card: '#1a1625',      // Card background
-              accent: '#fbbf24',    // Warm Gold (Earrings)
-              glow: '#c084fc',      // Soft Purple
-              text: '#e2e8f0',      // Main text
-              muted: '#94a3b8'      // Subtext
+              dark: '#0f0c15',
+              card: '#1a1625',
+              accent: '#fbbf24',
+              glow: '#c084fc',
+              text: '#e2e8f0',
+              muted: '#94a3b8'
             }
           },
           animation: {
@@ -51,7 +51,6 @@
   </script>
   
   <style>
-    /* Custom CSS for effects not easily handled by Tailwind utilities */
     body {
       background-color: #0f0c15;
       background-image: 
@@ -59,7 +58,6 @@
         radial-gradient(circle at 85% 30%, rgba(251, 191, 36, 0.05), transparent 25%);
     }
     
-    /* Tech Grid Background */
     .grid-bg {
       background-size: 40px 40px;
       background-image: 
@@ -68,7 +66,6 @@
       mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
     }
     
-    /* Glassmorphism Card Style */
     .glass-card {
       background: rgba(26, 22, 37, 0.6);
       backdrop-filter: blur(12px);
@@ -81,7 +78,6 @@
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
     
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f0c15; }
     ::-webkit-scrollbar-thumb { 
@@ -90,119 +86,25 @@
     }
     ::-webkit-scrollbar-thumb:hover { background: #fbbf24; }
     
-    /* Glow Effects */
     .glow-text { text-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
     .avatar-glow { box-shadow: 0 0 40px -10px rgba(251, 191, 36, 0.4); }
     
-    /* ========== CAROUSEL STYLES ========== */
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 0.75rem 0.75rem 0 0;
-    }
-    
-    .carousel-track {
-      display: flex;
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform;
-    }
-    
-    .carousel-slide {
-      min-width: 100%;
-      position: relative;
-    }
-    
-    .carousel-slide img {
+    /* Simple image hover effect for project cards */
+    .project-image {
       width: 100%;
       height: 12rem;
       object-fit: cover;
       transition: transform 0.5s ease;
       display: block;
     }
-    
-    .carousel-slide img:hover {
-      transform: scale(1.08);
+    .project-image:hover {
+      transform: scale(1.05);
     }
     
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(15, 12, 21, 0.7);
-      border: 1px solid rgba(251, 191, 36, 0.3);
-      color: #fbbf24;
-      width: 2.25rem;
-      height: 2.25rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
-      cursor: pointer;
-      z-index: 10;
-      opacity: 0;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(4px);
-    }
-    
-    .carousel-container:hover .carousel-btn {
-      opacity: 1;
-    }
-    
-    .carousel-btn:hover {
-      background: rgba(251, 191, 36, 0.2);
-      transform: translateY(-50%) scale(1.1);
-    }
-    
-    .carousel-btn.prev { left: 0.75rem; }
-    .carousel-btn.next { right: 0.75rem; }
-    
-    .carousel-dots {
-      position: absolute;
-      bottom: 0.75rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.5rem;
-      z-index: 10;
-    }
-    
-    .carousel-dot {
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(251, 191, 36, 0.4);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .carousel-dot.active {
-      background: #fbbf24;
-      transform: scale(1.2);
-      box-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
-    }
-    
-    /* Mobile touch optimization */
     @media (max-width: 768px) {
-      .carousel-btn {
-        opacity: 1;
-        width: 2rem;
-        height: 2rem;
-        font-size: 0.75rem;
-      }
-      .carousel-slide img {
+      .project-image {
         height: 10rem;
       }
-    }
-    
-    /* Animation for carousel slide entrance */
-    @keyframes slideIn {
-      from { opacity: 0.8; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .carousel-slide {
-      animation: slideIn 0.3s ease-out;
     }
   </style>
 </head>
@@ -232,12 +134,10 @@
   
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-    <!-- Decorative blurred orbs -->
     <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
     <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
     
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center w-full">
-      <!-- Text Content -->
       <div class="order-2 md:order-1 space-y-6">
         <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-selene-accent">
           <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
@@ -260,7 +160,6 @@
             Contact Me
           </a>
         </div>
-        <!-- Social Links Mini -->
         <div class="flex gap-4 pt-4 text-selene-muted">
           <a href="#" class="hover:text-white hover:scale-110 transition-transform"><i class="fab fa-github text-xl"></i></a>
           <a href="#" class="hover:text-blue-400 hover:scale-110 transition-transform"><i class="fab fa-linkedin text-xl"></i></a>
@@ -268,15 +167,11 @@
         </div>
       </div>
       
-      <!-- Image Content -->
       <div class="order-1 md:order-2 flex justify-center md:justify-end relative">
-        <!-- Background Glow behind image -->
         <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-purple-500/20 rounded-full blur-2xl transform scale-90"></div>
-        <!-- Profile Image Container -->
         <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl avatar-glow animate-float">
           <img src="selene-profile.png" alt="Selene Soares" class="w-full h-full object-cover">
         </div>
-        <!-- Floating Tech Badge -->
         <div class="absolute bottom-10 -left-4 glass-card px-4 py-2 rounded-lg flex items-center gap-3 animate-float" style="animation-delay: 2s;">
           <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center text-blue-400">
             <i class="fab fa-python"></i>
@@ -301,7 +196,6 @@
         <div class="hidden md:block h-px flex-1 bg-gradient-to-r from-white/10 to-transparent ml-8 mb-2"></div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card 1: Machine Learning -->
         <div class="glass-card p-6 rounded-xl group">
           <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-400 mb-4 group-hover:scale-110 transition-transform">
             <i class="fas fa-brain text-2xl"></i>
@@ -311,11 +205,11 @@
           <div class="flex flex-wrap gap-2">
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Scikit-learn</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">XGBoost</span>
-            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">PyTorch</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">TensorFlow</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Vowpal Wabbit</span>
           </div>
         </div>
         
-        <!-- Card 2: Data Engineering -->
         <div class="glass-card p-6 rounded-xl group">
           <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 transition-transform">
             <i class="fas fa-database text-2xl"></i>
@@ -326,11 +220,13 @@
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Beautifulsoup4</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">SQL</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Prefect</span>
-            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Modin + Pandas</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Pandas</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Polars</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Modin</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Rapids</span>
           </div>
         </div>
         
-        <!-- Card 3: Visualization -->
         <div class="glass-card p-6 rounded-xl group">
           <div class="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400 mb-4 group-hover:scale-110 transition-transform">
             <i class="fas fa-chart-line text-2xl"></i>
@@ -342,10 +238,10 @@
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Matplotlib</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Plotly</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Streamlit</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">OpenStreetMap</span>
           </div>
         </div>
         
-        <!-- Card 4: MLOps -->
         <div class="glass-card p-6 rounded-xl group">
           <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
             <i class="fas fa-cloud text-2xl"></i>
@@ -357,15 +253,14 @@
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Docker</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Git</span>
             <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">FastAPI</span>
+            <span class="text-xs px-2 py-1 rounded bg-white/5 border border-white/5 font-mono">Marimo</span>
           </div>
         </div>
       </div>
     </div>
   </section>
   
-  <!-- ========== PROJECTS WITH CAROUSELS ========== -->
-  
-  <!-- Selected Projects Section -->
+  <!-- Selected Projects Section (NO CAROUSELS - Single Image Per Card) -->
   <section id="projects" class="py-20">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
@@ -375,52 +270,17 @@
       
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <!-- Card: ANS Health Insights -->
+        <!-- Card: Globe Launch Visualization (REPLACED ANS) -->
         <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full group">
-          
-          <!-- Carousel Container -->
-          <div class="carousel-container relative h-48 w-full overflow-hidden bg-slate-900">
-            <div id="carousel-ans-health" class="carousel-track flex h-full w-full transition-transform duration-500 ease-out">
-              
-              <!-- Slide 1: Dashboard Streamlit (Visual) -->
-              <div class="carousel-slide min-w-full h-full relative">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&h=400&q=80" 
-                     alt="Dashboard de Insights ANS" 
-                     class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
-              </div>
-        
-              <!-- Slide 2: Mapa Geoespacial (PostGIS) -->
-              <div class="carousel-slide min-w-full h-full relative">
-                <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=600&h=400&q=80" 
-                     alt="Mapa de Cobertura Municipal" 
-                     class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
-              </div>
-        
-              <!-- Slide 3: Arquitetura de Dados (Pipeline) -->
-              <div class="carousel-slide min-w-full h-full relative">
-                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=400&q=80" 
-                     alt="Pipeline de Dados com Kedro" 
-                     class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
-              </div>
-        
-            </div>
-        
-            <!-- Navigation Buttons -->
-            <button class="carousel-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity" data-carousel="carousel-ans-health">
-              <i class="fas fa-chevron-left text-selene-accent"></i>
-            </button>
-            <button class="carousel-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-opacity" data-carousel="carousel-ans-health">
-              <i class="fas fa-chevron-right text-selene-accent"></i>
-            </button>
-        
-            <!-- Dots Indicators -->
-            <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-              <span class="carousel-dot w-2 h-2 rounded-full bg-white/30 border border-selene-accent/40 cursor-pointer transition-all active:bg-selene-accent active:scale-125" data-slide="0"></span>
-              <span class="carousel-dot w-2 h-2 rounded-full bg-white/30 border border-selene-accent/40 cursor-pointer transition-all" data-slide="1"></span>
-              <span class="carousel-dot w-2 h-2 rounded-full bg-white/30 border border-selene-accent/40 cursor-pointer transition-all" data-slide="2"></span>
+          <!-- Single Image (No Carousel) -->
+          <div class="relative h-48 w-full overflow-hidden bg-slate-900">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&h=400&q=80" 
+                 alt="Visualização 3D de lançamentos em globo terrestre" 
+                 class="project-image">
+            <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
+            <div class="absolute bottom-3 left-3 flex items-center gap-2 text-xs font-mono text-selene-accent">
+              <i class="fas fa-globe-americas"></i>
+              <span>7.500 Launches Mapped</span>
             </div>
           </div>
         
@@ -428,36 +288,24 @@
           <div class="p-6 flex-1 flex flex-col">
             <div class="flex justify-between items-start mb-2">
               <h3 class="text-xl font-bold text-white group-hover:text-selene-accent transition-colors">
-                ANS Health Intelligence
+                Global Launch Tracker 3D
               </h3>
-              <span class="px-2 py-1 rounded text-[10px] font-mono bg-green-500/10 text-green-400 border border-green-500/20">
-                Production
+              <span class="px-2 py-1 rounded text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                Visualization
               </span>
             </div>
             
             <p class="text-selene-muted text-sm mb-4 flex-1 leading-relaxed">
-              Pipeline robusto de processamento de dados da <strong>ANS</strong> para insights de planos de saúde. Inclui API de previsão de preços em tempo real e dashboard geoespacial para análise de cobertura municipal.
+              Visualização interativa em globo terrestre 3D mapeando <strong>7.500 lançamentos</strong> realizados de diversos pontos do planeta desde 1957. Inclui filtros dinâmicos de ano, país e operadoras.
             </p>
         
-            <!-- Tech Stack Grid (Organized by Layer) -->
+            <!-- Tech Stack Grid -->
             <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-mono">
-              <div class="px-2 py-1.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 flex items-center gap-2" title="Processamento">
-                <i class="fas fa-microchip"></i> Polars + Kedro
+              <div class="px-2 py-1.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 flex items-center gap-2" title="3D Engine">
+                <i class="fas fa-cube"></i> Streamlit + Plotly
               </div>
-              <div class="px-2 py-1.5 rounded bg-orange-500/10 text-orange-300 border border-orange-500/20 flex items-center gap-2" title="Orquestração">
-                <i class="fas fa-project-diagram"></i> Prefect
-              </div>
-              <div class="px-2 py-1.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 flex items-center gap-2" title="Banco de Dados">
-                <i class="fas fa-database"></i> PostGIS
-              </div>
-              <div class="px-2 py-1.5 rounded bg-red-500/10 text-red-300 border border-red-500/20 flex items-center gap-2" title="Cache">
-                <i class="fas fa-bolt"></i> Redis
-              </div>
-              <div class="px-2 py-1.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-2" title="Model Serving">
-                <i class="fas fa-server"></i> FastAPI + MLflow
-              </div>
-              <div class="px-2 py-1.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 flex items-center gap-2" title="Interface">
-                <i class="fas fa-chart-bar"></i> Streamlit
+              <div class="px-2 py-1.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 flex items-center gap-2" title="Geodata">
+                <i class="fas fa-map-marked-alt"></i> GeoPandas
               </div>
             </div>
         
@@ -467,7 +315,7 @@
                 <i class="fab fa-github"></i> Código
               </a>
               <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors">
-                <i class="fas fa-external-link-alt"></i> Demo App
+                <i class="fas fa-external-link-alt"></i> Demo Interativa
               </a>
               <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors ml-auto">
                 <i class="fas fa-book"></i> Docs
@@ -475,401 +323,132 @@
             </div>
           </div>
         </article>
-        
-        <!-- Project Card 2 with Carousel -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-selected-2" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=600&h=400&q=80" alt="NLP Project">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1620712881999-1f6fe7d8b6c9?auto=format&fit=crop&w=600&h=400&q=80" alt="Text Analysis">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-selected-2">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-selected-2">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2 group-hover:text-selene-accent transition-colors">NLP Sentiment Analyzer</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Transformer-based model for multi-language sentiment analysis with real-time API deployment.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">TensorFlow</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">Docker</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">FastAPI</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-file-alt"></i> Paper
-              </a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Project Card 3 with Carousel -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-selected-3" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1677442135722-5f11e04a8f28?auto=format&fit=crop&w=600&h=400&q=80" alt="Computer Vision">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1535378437327-1e4f8c2f6c1c?auto=format&fit=crop&w=600&h=400&q=80" alt="Image Processing">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39c?auto=format&fit=crop&w=600&h=400&q=80" alt="Model Training">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-selected-3">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-selected-3">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-              <span class="carousel-dot" data-slide="2"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2 group-hover:text-selene-accent transition-colors">Computer Vision Pipeline</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              End-to-end pipeline for object detection and tracking with MLOps integration for continuous deployment.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">MLFlow</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">Prefect</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">Docker</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-play"></i> Video
-              </a>
-            </div>
-          </div>
-        </article>
-        
+
+        <!-- Card: Solar Plant Location Optimizer -->
+<article class="glass-card rounded-xl overflow-hidden flex flex-col h-full group">
+  <!-- Single Image (No Carousel) -->
+  <div class="relative h-48 w-full overflow-hidden bg-slate-900">
+    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&h=400&q=80" 
+         alt="Mapa de localização de usinas fotovoltaicas no Sudeste brasileiro" 
+         class="project-image">
+    <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
+    <div class="absolute bottom-3 left-3 flex items-center gap-2 text-xs font-mono text-selene-accent">
+      <i class="fas fa-solar-panel"></i>
+      <span>Sudeste BR • NASA POWER 2024</span>
+    </div>
+  </div>
+
+  <!-- Content Body -->
+  <div class="p-6 flex-1 flex flex-col">
+    <div class="flex justify-between items-start mb-2">
+      <h3 class="text-xl font-bold text-white group-hover:text-selene-accent transition-colors">
+        SolarSite Optimizer
+      </h3>
+      <span class="px-2 py-1 rounded text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        Geospatial Intelligence
+      </span>
+    </div>
+    
+    <p class="text-selene-muted text-sm mb-4 flex-1 leading-relaxed">
+      Sistema de otimização para localização de usinas fotovoltaicas no <strong>Sudeste brasileiro</strong>. Processa dados da <strong>NASA POWER</strong> (2024) de incidência solar, pluviosidade e temperatura, combinando restrições geoespaciais do OpenStreetMap com Google OR-Tools para identificar locais com máximo potencial energético e viabilidade logística respeitando demarcações ambientais.
+    </p>
+
+    <!-- Tech Stack Grid -->
+    <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-mono">
+      <div class="px-2 py-1.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 flex items-center gap-2" title="Data Processing">
+        <i class="fas fa-table"></i> Pandas + NumPy
+      </div>
+      <div class="px-2 py-1.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-2" title="Geodata">
+        <i class="fas fa-map"></i> OpenStreetMap
+      </div>
+      <div class="px-2 py-1.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 flex items-center gap-2" title="Optimization">
+        <i class="fas fa-calculator"></i> Google OR-Tools
+      </div>
+      <div class="px-2 py-1.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 flex items-center gap-2" title="Interface">
+        <i class="fas fa-chart-area"></i> Streamlit + Folium
       </div>
     </div>
-  </section>
-  
-  <!-- Research Projects Section -->
-  <section id="research-projects" class="py-20 bg-selene-dark/30">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
-        <span class="w-8 h-1 bg-selene-accent rounded-full"></span>
-        Research Projects
-      </h2>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Research Project 1 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-research-1" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=400&q=80" alt="Edge Computing">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&h=400&q=80" alt="Neural Networks">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-research-1">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-research-1">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">Early-Exit Neural Networks</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Adaptive offloading strategies for edge-cloud inference with fault-resilient priority buffers.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">PyTorch</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">Edge Computing</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-file-alt"></i> Paper
-              </a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Research Project 2 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-research-2" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1551650975-87de4be8a5d5?auto=format&fit=crop&w=600&h=400&q=80" alt="Federated Learning">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-research-2">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-research-2">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">Federated Learning Framework</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Privacy-preserving distributed training with adaptive aggregation and differential privacy guarantees.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">TensorFlow Federated</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Differential Privacy</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-external-link-alt"></i> Demo
-              </a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Research Project 3 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-research-3" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&h=400&q=80" alt="Time Series">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&h=400&q=80" alt="Forecasting">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=400&q=80" alt="Anomaly Detection">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-research-3">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-research-3">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-              <span class="carousel-dot" data-slide="2"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">Time Series Forecasting</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Hybrid models combining statistical methods and deep learning for robust multi-horizon forecasting.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">Prophet</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">LSTM</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">ARIMA</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-play"></i> Video
-              </a>
-            </div>
-          </div>
-        </article>
-        
+
+    <!-- Action Links -->
+    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-white/5">
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors">
+        <i class="fab fa-github"></i> Código
+      </a>
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors">
+        <i class="fas fa-external-link-alt"></i> Demo no Streamlit
+      </a>
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors ml-auto">
+        <i class="fas fa-database"></i> Dataset NASA
+      </a>
+    </div>
+  </div>
+</article>
+
+<!-- Card: Toll Plaza Analytics RJ -->
+<article class="glass-card rounded-xl overflow-hidden flex flex-col h-full group">
+  <!-- Single Image (No Carousel) -->
+  <div class="relative h-48 w-full overflow-hidden bg-slate-900">
+    <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&h=400&q=80" 
+         alt="Dashboard de análise de fluxo em praças de pedágio do RJ" 
+         class="project-image">
+    <div class="absolute inset-0 bg-gradient-to-t from-selene-dark/80 to-transparent"></div>
+    <div class="absolute bottom-3 left-3 flex items-center gap-2 text-xs font-mono text-selene-accent">
+      <i class="fas fa-road"></i>
+      <span>RJ • +2GB Processados</span>
+    </div>
+  </div>
+
+  <!-- Content Body -->
+  <div class="p-6 flex-1 flex flex-col">
+    <div class="flex justify-between items-start mb-2">
+      <h3 class="text-xl font-bold text-white group-hover:text-selene-accent transition-colors">
+        TollFlow Analytics RJ
+      </h3>
+      <span class="px-2 py-1 rounded text-[10px] font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20">
+        Data Intelligence
+      </h3>
+    </div>
+    
+    <p class="text-selene-muted text-sm mb-4 flex-1 leading-relaxed">
+      Pipeline de processamento de <strong>gigabytes de dados da ANTT</strong> para análise de mobilidade no estado do Rio de Janeiro. Gera relatórios dinâmicos explorando <strong>sazonalidade em séries temporais</strong> e <strong>correlação entre fluxos em praças de pedágio</strong>, orientando estratégias de alocação de recursos para <em>advertising</em> em rodovias.
+    </p>
+
+    <!-- Tech Stack Grid -->
+    <div class="grid grid-cols-2 gap-2 mb-6 text-xs font-mono">
+      <div class="px-2 py-1.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 flex items-center gap-2" title="High-Performance DF">
+        <i class="fas fa-bolt"></i> Polars
+      </div>
+      <div class="px-2 py-1.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 flex items-center gap-2" title="Interactive Viz">
+        <i class="fas fa-chart-line"></i> Plotly
+      </div>
+      <div class="px-2 py-1.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-2" title="Dashboard App">
+        <i class="fas fa-window-maximize"></i> Streamlit
+      </div>
+      <div class="px-2 py-1.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-2" title="Time Series">
+        <i class="fas fa-wave-square"></i> Statsmodels
       </div>
     </div>
-  </section>
-  
-  <!-- Personal Projects Section -->
-  <section id="personal-projects" class="py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
-        <span class="w-8 h-1 bg-selene-accent rounded-full"></span>
-        Personal Projects
-      </h2>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Personal Project 1 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-personal-1" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=400&q=80" alt="Board Game AI">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=600&h=400&q=80" alt="Game Strategy">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-personal-1">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-personal-1">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">Decision Support System for Ticket to Ride</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Graph-based AI assistant for strategic decision-making in the board game Ticket to Ride using Monte Carlo simulations.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">NetworkX</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">Matplotlib</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/20">Streamlit</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-external-link-alt"></i> Demo
-              </a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Personal Project 2 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-personal-2" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1550751863-8843e2c3f8a0?auto=format&fit=crop&w=600&h=400&q=80" alt="Weather App">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-personal-2">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-personal-2">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">Serverless Weather Forecaster</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              AWS Lambda-based microservice that aggregates weather data from multiple APIs with anomaly detection alerts.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">Python</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-orange-500/10 text-orange-300 border border-orange-500/20">AWS Lambda</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">Serverless</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-file-alt"></i> Blog Post
-              </a>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Personal Project 3 -->
-        <article class="glass-card rounded-xl overflow-hidden flex flex-col h-full">
-          <div class="carousel-container">
-            <div id="carousel-personal-3" class="carousel-track">
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39c?auto=format&fit=crop&w=600&h=400&q=80" alt="CUDA Project">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=400&q=80" alt="GPU Computing">
-              </div>
-            </div>
-            <button class="carousel-btn prev" data-carousel="carousel-personal-3">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-btn next" data-carousel="carousel-personal-3">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-              <span class="carousel-dot active" data-slide="0"></span>
-              <span class="carousel-dot" data-slide="1"></span>
-            </div>
-          </div>
-          
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold mb-2">GPU-Accelerated Matrix Operations</h3>
-            <p class="text-selene-muted text-sm mb-4 flex-1">
-              Custom CUDA kernels for high-performance linear algebra operations with Python bindings.
-            </p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">C++</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-300 border border-green-500/20">CUDA</span>
-              <span class="text-xs px-2 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">pybind11</span>
-            </div>
-            <div class="flex items-center gap-4 mt-auto">
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fab fa-github"></i> Code
-              </a>
-              <a href="#" class="text-sm font-medium hover:text-selene-accent flex items-center gap-2">
-                <i class="fas fa-play"></i> Benchmark
-              </a>
-            </div>
-          </div>
-        </article>
-        
-      </div>
+
+    <!-- Action Links -->
+    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-white/5">
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors">
+        <i class="fab fa-github"></i> Código
+      </a>
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors">
+        <i class="fas fa-external-link-alt"></i> Dashboard Live
+      </a>
+      <a href="#" class="text-sm font-medium text-selene-muted hover:text-selene-accent flex items-center gap-2 transition-colors ml-auto">
+        <i class="fas fa-database"></i> Fonte: ANTT
+      </a>
     </div>
-  </section>
+  </div>
+</article>
   
   <!-- Publications Section -->
   <section id="publications" class="py-20 bg-selene-dark/30">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold mb-12 text-center">Publications</h2>
       <div class="space-y-6">
-        <!-- Pub Item 1 -->
         <div class="glass-card p-6 rounded-xl flex flex-col md:flex-row md:items-center gap-6 hover:border-selene-accent/30 transition-colors">
           <div class="flex-1">
             <h3 class="text-lg font-bold text-white mb-1">Fault-Resilient Adaptive Offloading with Priority Buffers for Early-Exit Deep Neural Networks</h3>
@@ -885,7 +464,6 @@
           </div>
         </div>
         
-        <!-- Pub Item 2 -->
         <div class="glass-card p-6 rounded-xl flex flex-col md:flex-row md:items-center gap-6 hover:border-selene-accent/30 transition-colors">
           <div class="flex-1">
             <h3 class="text-lg font-bold text-white mb-1">Offloading Adaptativo em Redes Neurais com Saídas Antecipadas: Equilíbrio e Compartilhamento de Recursos Através de Multi-Armed Bandits</h3>
@@ -906,7 +484,6 @@
   
   <!-- Contact Section -->
   <section id="contact" class="py-20 relative overflow-hidden">
-    <!-- Background accent -->
     <div class="absolute inset-0 bg-gradient-to-t from-selene-accent/5 to-transparent pointer-events-none"></div>
     <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
       <h2 class="text-4xl font-bold mb-6">Let's Connect</h2>
@@ -945,162 +522,6 @@
     <p>&copy; 2026 Selene Soares. Built with <i class="fas fa-heart text-red-500 mx-1"></i> and hot cocoa.</p>
   </footer>
   
-  <!-- ========== CAROUSEL JAVASCRIPT ========== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Carousel state management
-      const carousels = {};
-      
-      // Initialize all carousels
-      document.querySelectorAll('.carousel-track').forEach(track => {
-        const id = track.id;
-        const container = track.closest('.carousel-container');
-        const slides = track.querySelectorAll('.carousel-slide');
-        const dots = container.querySelectorAll('.carousel-dot');
-        const prevBtn = container.querySelector('.carousel-btn.prev');
-        const nextBtn = container.querySelector('.carousel-btn.next');
-        
-        // Initialize state
-        carousels[id] = {
-          current: 0,
-          total: slides.length,
-          track: track,
-          slides: slides,
-          dots: dots,
-          autoPlay: null
-        };
-        
-        // Setup dot click handlers
-        dots.forEach(dot => {
-          dot.addEventListener('click', () => {
-            const slideIndex = parseInt(dot.dataset.slide);
-            goToSlide(id, slideIndex);
-            resetAutoPlay(id);
-          });
-        });
-        
-        // Setup button handlers
-        if (prevBtn) {
-          prevBtn.addEventListener('click', () => {
-            prevSlide(id);
-            resetAutoPlay(id);
-          });
-        }
-        
-        if (nextBtn) {
-          nextBtn.addEventListener('click', () => {
-            nextSlide(id);
-            resetAutoPlay(id);
-          });
-        }
-        
-        // Touch support for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        track.addEventListener('touchstart', (e) => {
-          touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        track.addEventListener('touchend', (e) => {
-          touchEndX = e.changedTouches[0].screenX;
-          handleSwipe(id);
-        }, { passive: true });
-        
-        // Auto-play functionality (optional, can be disabled)
-        startAutoPlay(id);
-      });
-      
-      // Navigate to specific slide
-      function goToSlide(carouselId, slideIndex) {
-        const carousel = carousels[carouselId];
-        if (!carousel || slideIndex < 0 || slideIndex >= carousel.total) return;
-        
-        carousel.current = slideIndex;
-        updateCarousel(carousel);
-      }
-      
-      // Next slide
-      function nextSlide(carouselId) {
-        const carousel = carousels[carouselId];
-        if (!carousel) return;
-        
-        carousel.current = (carousel.current + 1) % carousel.total;
-        updateCarousel(carousel);
-      }
-      
-      // Previous slide
-      function prevSlide(carouselId) {
-        const carousel = carousels[carouselId];
-        if (!carousel) return;
-        
-        carousel.current = (carousel.current - 1 + carousel.total) % carousel.total;
-        updateCarousel(carousel);
-      }
-      
-      // Handle touch swipe
-      function handleSwipe(carouselId) {
-        const threshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > threshold) {
-          if (diff > 0) {
-            nextSlide(carouselId); // Swipe left -> next
-          } else {
-            prevSlide(carouselId); // Swipe right -> prev
-          }
-          resetAutoPlay(carouselId);
-        }
-      }
-      
-      // Update carousel UI
-      function updateCarousel(carousel) {
-        // Move track
-        carousel.track.style.transform = `translateX(-${carousel.current * 100}%)`;
-        
-        // Update dots
-        carousel.dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === carousel.current);
-        });
-      }
-      
-      // Auto-play functionality
-      function startAutoPlay(carouselId) {
-        const carousel = carousels[carouselId];
-        if (!carousel) return;
-        
-        // Auto-play every 8 seconds (can be adjusted)
-        carousel.autoPlay = setInterval(() => {
-          nextSlide(carouselId);
-        }, 8000);
-      }
-      
-      function resetAutoPlay(carouselId) {
-        const carousel = carousels[carouselId];
-        if (!carousel || !carousel.autoPlay) return;
-        
-        clearInterval(carousel.autoPlay);
-        startAutoPlay(carouselId);
-      }
-      
-      // Pause auto-play on hover (better UX)
-      document.querySelectorAll('.carousel-container').forEach(container => {
-        container.addEventListener('mouseenter', () => {
-          const trackId = container.querySelector('.carousel-track').id;
-          if (carousels[trackId]?.autoPlay) {
-            clearInterval(carousels[trackId].autoPlay);
-            carousels[trackId].autoPlay = null;
-          }
-        });
-        
-        container.addEventListener('mouseleave', () => {
-          const trackId = container.querySelector('.carousel-track').id;
-          if (!carousels[trackId].autoPlay) {
-            startAutoPlay(trackId);
-          }
-        });
-      });
-    });
-  </script>
+  <!-- No carousel JavaScript needed anymore! -->
 </body>
 </html>
