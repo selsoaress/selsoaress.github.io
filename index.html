@@ -150,9 +150,13 @@
     border-radius:50%;background:var(--paper);
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 20px 40px -15px rgba(40,0,3,.25);
-    border:1px solid rgba(40,0,3,.08);
+    border:3px solid var(--paper);
+    outline:1.5px solid rgba(40,0,3,.1);
+    overflow:hidden;
   }
-  .orbit-core i{font-size:3rem;color:var(--terracotta);}
+  .orbit-core img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
   .orbit-ring{
     position:absolute;inset:0;border:1.5px dashed rgba(40,0,3,.18);border-radius:50%;
     animation:spin 22s linear infinite;
@@ -341,7 +345,7 @@
       <div class="orbit-wrap">
         <div class="orbit-ring"></div>
         <div class="orbit-ring r2"></div>
-        <div class="orbit-core"><i class="fas fa-chart-line"></i></div>
+        <div class="orbit-core"><img src="selene-profile.jpg" alt="Selene Soares"></div>
         <div class="satellite sat-1"><i class="fab fa-python"></i></div>
         <div class="satellite sat-2"><i class="fas fa-database"></i></div>
         <div class="satellite sat-3"><i class="fas fa-square-root-variable"></i></div>
